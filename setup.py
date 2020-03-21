@@ -18,10 +18,10 @@ setup(
     author_email="cj59@nyu.edu",
     maintainer="Chris Jackson",
     maintainer_email="cj59@nyu.edu",
-    packages=["bio_test_artifacts", "bio_test_artifacts.generate", "bio_test_artifacts.prebuilt"],
+    packages=find_packages(include=["bio_test_artifacts", "bio_test_artifacts.*"]),
     package_data={'bio_test_artifacts': ['prebuilt/artifacts/*']},
     zip_safe=False,
-    install_requires=["numpy"],
+    install_requires=["numpy", "pandas"],
     python_requires=">=3.5",
     classifiers=[
         "Programming Language :: Python :: 3",

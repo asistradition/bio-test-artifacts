@@ -9,7 +9,7 @@ DEFAULT_NUCLEOTIDE_ALPHABET = "ATGC"
 DEFAULT_PROTEIN_ALPHABET = "ACDEFGHIKLMNPQRSTVWY"
 
 
-def generate_fasta(num_records=20, record_length=100, random_seed=42, target_file=None,
+def fasta_generate(num_records=20, record_length=100, random_seed=42, target_file=None,
                    alphabet=DEFAULT_NUCLEOTIDE_ALPHABET, probabilities=None):
     """
     Generate a random FASTA file
@@ -25,7 +25,8 @@ def generate_fasta(num_records=20, record_length=100, random_seed=42, target_fil
     :type alphabet: str, optional
     :param probabilities: An iterable with probabilities for each character in the alphabet string. Defaults to balanced
     :type probabilities: tuple(float), optional
-    :return:
+    :return: An absolute pathname to a TSV file and a list of (header, seq) tuples
+    :rtype: str, list(tuple())
     """
 
     probabilities = [1. / len(alphabet)] * len(alphabet) if probabilities is None else probabilities
