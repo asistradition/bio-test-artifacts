@@ -1,0 +1,2 @@
+from bio_test_artifacts.prebuilt.fasta import fasta_yeast_chr01, fasta_protein_yeast_chr01
+
