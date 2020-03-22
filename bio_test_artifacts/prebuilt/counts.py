@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-import subprocess
+
 from bio_test_artifacts._loader import Load
 
 _data_path = os.path.join(os.path.dirname(__file__), "artifacts")
@@ -23,11 +23,7 @@ def counts_yeast_tpm(gzip=False):
     """
     file = os.path.join(_data_path, _YEAST_COUNTS_TPM_FILE_NAME)
 
-    copied_file = Load.copy_test_file(file)
-
-    if gzip:
-        subprocess.check_call(['gzip', copied_file])
-        copied_file += ".gz"
+    copied_file = Load.copy_test_file(file, gzip=gzip)
 
     return copied_file, pd.read_csv(file, sep="\t", index_col=None)
 
@@ -45,11 +41,7 @@ def counts_yeast_tpm_chr01(gzip=False):
     """
     file = os.path.join(_data_path, _YEAST_COUNTS_TPM_CHR01_FILE_NAME)
 
-    copied_file = Load.copy_test_file(file)
-
-    if gzip:
-        subprocess.check_call(['gzip', copied_file])
-        copied_file += ".gz"
+    copied_file = Load.copy_test_file(file, gzip=gzip)
 
     return copied_file, pd.read_csv(file, sep="\t", index_col=None)
 
@@ -67,10 +59,6 @@ def counts_yeast_single_cell_chr01(gzip=False):
     """
     file = os.path.join(_data_path, _YEAST_COUNTS_SINGLE_CELL_FILE_NAME)
 
-    copied_file = Load.copy_test_file(file)
-
-    if gzip:
-        subprocess.check_call(['gzip', copied_file])
-        copied_file += ".gz"
+    copied_file = Load.copy_test_file(file, gzip=gzip)
 
     return copied_file, pd.read_csv(file, sep="\t", index_col=None)

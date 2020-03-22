@@ -1,6 +1,7 @@
 import tempfile
 import shutil
 import os
+import subprocess
 
 
 class Load:
@@ -9,19 +10,29 @@ class Load:
     _temp_files = None
 
     @classmethod
-    def copy_test_file(cls, file):
+    def copy_test_file(cls, file, gzip=False, unzip=False):
         cls._check_init()
 
         # Make sure the file is an absolute path
         file = os.path.abspath(os.path.expanduser(file))
 
         # Make a temp file and close the file descriptor
-        _, extension = os.path.splitext(file)
+        extension = os.extsep(os.path.basename(file), 1)
+        extension = extension[1] if len(extension) == 2 else ""
         fd, tmp_file_name = tempfile.mkstemp(suffix=extension, dir=cls._temp_path.name)
         os.close(fd)
 
         # Copy the test file
         shutil.copy(file, tmp_file_name)
+
+        if gzip:
+            subprocess.check_call(['gzip', tmp_file_name])
+            tmp_file_name += ".gz"
+
+        if unzip:
+            subprocess.check_call(['gunzip', tmp_file_name])
+            if tmp_file_name.endswith(".gz"):
+                tmp_file_name = tmp_file_name[:-3]
 
         cls._temp_files.append((file, tmp_file_name))
 
