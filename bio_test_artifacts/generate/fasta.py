@@ -13,6 +13,7 @@ def fasta_generate(num_records=20, record_length=100, random_seed=42, target_fil
                    alphabet=DEFAULT_NUCLEOTIDE_ALPHABET, probabilities=None):
     """
     Generate a random FASTA file
+
     :param num_records: Number of separate records to include in the file. Defaults to 20 records
     :type num_records: int, optional
     :param record_length: Length in bases of each individual record in the file, Defaults to 100 bases per record

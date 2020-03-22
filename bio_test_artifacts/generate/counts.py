@@ -9,6 +9,7 @@ def counts_tsv_generate(num_obs=25, num_genes=5000, random_seed=42, integer=True
                         transpose=False):
     """
     Generate a random TSV count or TPM matrix
+
     :param num_obs: Number of observations / samples. Defaults to 25
     :type num_obs: int, optional
     :param num_genes: Number of genes. Defaults to 5000
