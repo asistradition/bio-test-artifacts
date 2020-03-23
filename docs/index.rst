@@ -5,6 +5,7 @@
    :hidden:
 
    fasta
+   fastq
    counts
    references
    changelog
