@@ -6,6 +6,7 @@
 
    fasta
    fastq
+   annotation
    counts
    references
    changelog
