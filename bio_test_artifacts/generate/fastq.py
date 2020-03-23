@@ -18,7 +18,7 @@ def _illumina_num_to_qual(qlist):
 def fastq_generate(num_sequences=100, seq_length=75, gzip_output=True,  random_seed=42, target_file=None,
                    alphabet=DEFAULT_NUCLEOTIDE_ALPHABET, probabilities=None):
     """
-    Generate a random FASTQ file
+    Generate a random FASTQ file. PHRED scores will be illumina (+33).
 
     :param num_sequences: Number of separate sequence records to include in the file. Defaults to 100 records
     :type num_sequences: int, optional
@@ -30,11 +30,12 @@ def fastq_generate(num_sequences=100, seq_length=75, gzip_output=True,  random_s
     :type random_seed: int, optional
     :param target_file: File target. Optional. Will create a temp file in $TMP if not set.
     :type target_file: str, optional
-    :param alphabet: A string containing the alphabet for FASTA record, Defaults to ATGC
+    :param alphabet: A string containing the alphabet for FASTQ record, Defaults to ATGC
     :type alphabet: str, optional
     :param probabilities: An iterable with probabilities for each character in the alphabet string. Defaults to balanced
     :type probabilities: tuple(float), optional
-    :return: An absolute pathname to a TSV file and a list of (header, seq) tuples
+    :return: An absolute pathname to a TSV file and a list of (header, seq, quality) tuples.
+        Quality is a list of integer PHRED scores, not a character string
     :rtype: str, list(tuple())
     """
 
@@ -54,11 +55,14 @@ def fastq_generate(num_sequences=100, seq_length=75, gzip_output=True,  random_s
     records = []
     with opener(target_file, mode="w") as fastq_fh:
         for i in range(num_sequences):
+
+            # Generate data for this record
             loc = random_generator.randint(1, 99999, size=2)
             header = FASTQ_HEADER.format(i=i, r1=loc[0], r2=loc[1], l=seq_length)
             seq = "". join(random_generator.choice(list(alphabet), size=seq_length, p=probabilities))
             qual = [np.maximum(random_generator.normal(33, 4, size=seq_length).astype(int), 33)]
 
+            # Print the data to the output file
             print("@" + header, file=fastq_fh)
             print(seq, file=fastq_fh)
             print("+" + header, file=fastq_fh)
