@@ -17,7 +17,7 @@ class Load:
         file = os.path.abspath(os.path.expanduser(file))
 
         # Make a temp file and close the file descriptor
-        extension = os.extsep(os.path.basename(file), 1)
+        extension = os.path.basename(file).split(os.extsep, 1)
         extension = extension[1] if len(extension) == 2 else ""
         fd, tmp_file_name = tempfile.mkstemp(suffix=extension, dir=cls._temp_path.name)
         os.close(fd)
