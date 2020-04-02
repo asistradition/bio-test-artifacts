@@ -13,7 +13,7 @@ _YEAST_COUNTS_SS_H5AD_FILE_NAME = "GSE125162_counts_chr01.h5ad.gz"
 
 _YEAST_COUNTS_SS_MTX_FILE_NAME = "GSE125162_counts_chr01.mtx.gz"
 _YEAST_COUNTS_SS_MTX_GENES_FILE_NAME = "GSE125162_counts_chr01_genes.tsv.gz"
-_YEAST_COUNTS_SS_MTX_FEATURE_FILE_NAME = "GSE125162_counts_chr01_features.tsv.gz"
+_YEAST_COUNTS_SS_MTX_OBS_FILE_NAME = "GSE125162_counts_chr01_features.tsv.gz"
 
 
 def counts_yeast_tpm(gzip=False):
@@ -77,9 +77,9 @@ def counts_yeast_single_cell_chr01(gzip=False, filetype='tsv'):
         file = os.path.join(_data_path, _YEAST_COUNTS_SS_H5AD_FILE_NAME)
     elif filetype.lower() == "mtx":
         mtx_file = Load.copy_test_file(os.path.join(_data_path, _YEAST_COUNTS_SS_MTX_FILE_NAME), unzip=not gzip)
-        mtx_feat = Load.copy_test_file(os.path.join(_data_path, _YEAST_COUNTS_SS_MTX_FEATURE_FILE_NAME), unzip=not gzip)
+        mtx_obs = Load.copy_test_file(os.path.join(_data_path, _YEAST_COUNTS_SS_MTX_OBS_FILE_NAME), unzip=not gzip)
         mtx_gene = Load.copy_test_file(os.path.join(_data_path, _YEAST_COUNTS_SS_MTX_GENES_FILE_NAME), unzip=not gzip)
-        return (mtx_file, mtx_gene, mtx_feat), tsv_data
+        return (mtx_file, mtx_gene, mtx_obs), tsv_data
     else:
         raise ValueError("filetype must be tsv, mtx, hdf5, or h5ad")
 
